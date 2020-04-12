@@ -1,0 +1,31 @@
+.product_detail {
+    padding: 4% 0;
+}
+
+.product_title1 {
+    font-weight: bold;
+    padding: 5px 0;
+}
+
+.product_code {
+    background-color: orange;
+    color: #fff;
+    border-radius: 4px;
+    padding: 0 10px;
+}
+
+.product_info {
+    font-weight: normal;
+}
+
+.product_price {
+    padding: 5px 0 10px 0;
+}
+
+.order {
+    color: #fff;
+}
+
+.order:hover {
+    color: #fff;
+}

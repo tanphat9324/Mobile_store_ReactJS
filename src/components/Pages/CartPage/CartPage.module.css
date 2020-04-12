@@ -1,0 +1,25 @@
+.cart {
+    padding: 4%;
+}
+.wrapper_button {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn_red {
+    background-color: #c82333;
+    color: #fff !important;
+    cursor: pointer;
+}
+
+.btn_red:hover {
+    background-color: #d1404e;
+    color: #fff;
+}
+.plus {
+    width:38px;
+}
+.quantity{
+    font-weight: bold;
+    padding:5px;
+}
