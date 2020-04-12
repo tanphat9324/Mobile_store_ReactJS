@@ -21,25 +21,17 @@ export const ProductListManageReducer = (state = stateProductList, action) => {
       let newProductList = [...state.dataProductList];
       let infoBuy = [...state.infoBuyItem];
       let index = newProductList.findIndex((item) => item.id === action.id);
-      // console.log(newProductList);
       let checkProduct = checkDuplicate(newProductList[index].productName,infoBuy);
       if (!checkProduct) {
         infoBuy = [...infoBuy, newProductList[index]];
       }
       state.infoBuyItem = infoBuy;
-      // console.log(state.infoBuyItem);
       return { ...state };
     }
     case actionType.REMOVE_PRODUCT: {
       let newProductList = [...state.infoBuyItem];
-      // let index = newProductList.findIndex(x => x.id === action.data);
-      // newProductList.splice(index,1);
-
       newProductList = newProductList.filter(x => x.id !== action.data);
-
-      state.infoBuyItem = newProductList;
-      // console.log(state.infoBuyItem);
-      
+      state.infoBuyItem = newProductList;      
       return {...state}
     }
     case actionType.REMOVE_ALL_PRODUCT: {
@@ -47,7 +39,6 @@ export const ProductListManageReducer = (state = stateProductList, action) => {
       newProductList.length = 0;
       state.infoBuyItem = newProductList;
       return {...state}
-
     }
     default:
       return state;

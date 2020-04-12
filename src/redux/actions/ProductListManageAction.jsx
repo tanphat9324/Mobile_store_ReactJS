@@ -27,7 +27,6 @@ export const getProductList = () => {
       url: settings.domain + `/posts.json`,
     })
       .then((res) => {
-        // console.log(res.data);
         let productList = [];
         let data = res.data;
         for (const key in data) {
@@ -36,8 +35,6 @@ export const getProductList = () => {
         for (let i = 0; i < productList.length; i++) {
           productList[i].quantity = 1; 
         }
-        // console.log(productList);
-
         dispatch(recvProductList(productList));
       })
       .catch((err) => {});
