@@ -20,11 +20,9 @@ class ProductAddPage extends Component {
       image: "",
       url: "",
       progress: 0,
+      formValid:false
     };
   }
-componentDidMount() {
-  console.log(localStorage.getItem('token'));  
-}
   header = {
     title: "Products",
     type: "productadd",
@@ -230,7 +228,7 @@ componentDidMount() {
                 <label id="progress" htmlFor="progress"></label>
                 <progress value={this.state.progress} max="100" />
                 <label id="name-label" htmlFor="name"></label>
-                <button className="btn btn-blue" type="submit">
+                <button disabled={!this.state.formValid} className="btn btn-blue" type="submit">
                   Add Product
                 </button>
               </Fragment>

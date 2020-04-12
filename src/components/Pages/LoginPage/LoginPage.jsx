@@ -14,46 +14,73 @@ class LoginPage extends Component {
         email: "",
         password: "",
       },
-      errors: {
+      formErrors: {
         email: "",
         password: "",
       },
-      valid: false,
+      formValid: false,
+      emailValid: false,
+      passwordValid: false,
     };
   }
 
   handleChange = (e) => {
     let { value, name } = e.target;
-    this.setState({
-      user: { ...this.state.user, [name]: value },
-    });
-  };
-
-  handleError = (e) => {
-    let { name, value } = e.target;
-    let error = value === "" ? name + " không được để trống!" : "";
-    if (name === "email") {
-      let regex = /^[a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/;
-      if (!regex.test(value)) {
-        error = "Không đúng định dạng email";
+    this.setState(
+      {
+        user: { ...this.state.user, [name]: value },
+      },
+      () => {
+        this.validateField(name, value);
       }
-    }
-    if (name === "password") {
-      let regex = /^[a-z0-9_-]{3,12}$/;
-      if (!regex.test(value)) {
-        error = "3-6 kí tự gồm chữ cái, số và dấu gạch ngang";
-      }
-    }
-    this.state.valid = error === "" ? true : false;
-    this.setState({
-      errors: { ...this.state.errors, [name]: error },
-    });
+    );
   };
+  validateField = (fieldName, value) => {
+    let errors = value === "" ? fieldName + " không được để trống!" : "";
+    let emailValid = this.state.emailValid;
+    let passwordValid = this.state.passwordValid;
+    let regex;
+    switch (fieldName) {
+      case "email": {
+        regex = /^[a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/;
+        errors = !regex.test(value) ? "Email is invalid" : (emailValid = true);
+        break;
+      }
+      case "password": {
+        regex = /^[a-z0-9_-]{3,12}$/;
+        errors = !regex.test(value)
+          ? "3-6 kí tự gồm chữ cái, số và dấu gạch ngang"
+          : (passwordValid = true);
+        break;
+      }
 
+      default:
+        break;
+    }
+    this.setState(
+      {
+        formErrors: { ...this.state.formErrors, [fieldName]: errors },
+        emailValid: emailValid,
+        passwordValid: passwordValid,
+      },
+      this.validateForm
+    );
+  };
+  validateForm() {
+    let { emailValid, passwordValid } = this.state;
+    if (emailValid && passwordValid) {
+      this.setState({
+        formValid: true,
+      });
+    } else {
+      this.setState({
+        formValid: false,
+      });
+    }
+  }
   handleSubmit = (e) => {
     e.preventDefault();
     let user = { ...this.state.user, returnSecureToken: "true" };
-    // console.log(user);
     this.props.logIn(user, this.navigation);
   };
   navigation = () => {
@@ -77,7 +104,7 @@ class LoginPage extends Component {
                 <input
                   type="email"
                   className={`form-control ${
-                    this.state.errors.email !== "" ? "sai" : "dung"
+                    this.state.emailValid ? "dung" : "sai"
                   }`}
                   name="email"
                   onChange={this.handleChange}
@@ -87,8 +114,10 @@ class LoginPage extends Component {
                   placeholder="Email"
                 />
                 <div className="isValid">
-                  {this.state.errors.email !== "" ? (
-                    <div className="help-block">{this.state.errors.email}</div>
+                  {!this.state.emailValid ? (
+                    <div className="help-block">
+                      {this.state.formErrors.email}
+                    </div>
                   ) : (
                     ""
                   )}
@@ -98,7 +127,7 @@ class LoginPage extends Component {
                 <input
                   placeholder="Password"
                   className={`form-control ${
-                    this.state.errors.password !== "" ? "sai" : "dung"
+                    this.state.passwordValid ? "dung" : "sai"
                   }`}
                   onChange={this.handleChange}
                   onKeyUp={this.handleError}
@@ -111,9 +140,9 @@ class LoginPage extends Component {
                   <i className="fa fa-fw fa-eye"></i>
                 </span>
                 <div className="isValid">
-                  {this.state.errors.password !== "" ? (
+                  {!this.state.passwordValid ? (
                     <div className="help-block">
-                      {this.state.errors.password}
+                      {this.state.formErrors.password}
                     </div>
                   ) : (
                     ""
@@ -123,7 +152,7 @@ class LoginPage extends Component {
               <div className="wrapper_buttonLogin">
                 <button
                   className="btn btn-success button_submit"
-                  disabled={!this.state.valid}
+                  disabled={!this.state.formValid}
                   type="submit"
                 >
                   Login
