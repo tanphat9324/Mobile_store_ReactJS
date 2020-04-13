@@ -62,7 +62,7 @@ class ProductAddPage extends Component {
             .getDownloadURL()
             .then((url) => {
               console.log(url);
-              this.setState({ url });
+              this.setState({ url,formValid:true });
             });
         }
       );

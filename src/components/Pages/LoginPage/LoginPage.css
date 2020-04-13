@@ -24,7 +24,6 @@ form {
 .wrapper_input {
   width: 92%;
   margin: 0 auto;
-  /* margin-bottom: 4%; */
 }
 .wrapper_buttonLogin{
   width: 100%;
@@ -70,20 +69,20 @@ input.ng-invalid.ng-touched {
   z-index: 2;
   cursor: pointer;
 }
-.sai:focus{
+.invalid:focus{
   border-color: #ff6060;
     box-shadow: 0 0 0 0.1rem #ff6060;
 }
-/* .sai:u{
+/* .invalid:u{
   border-color: #ff6060;
     box-shadow: 0 0 0 0.1rem #ff6060;
 }
 
-.dung:visited{
+.valid:visited{
   border-color: #89dd9d;
   box-shadow: 0 0 0 0.1rem #89dd9d;
 } */
-.dung:focus{
+.valid:focus{
   border-color: #89dd9d;
   box-shadow: 0 0 0 0.1rem #89dd9d;
 }

@@ -104,7 +104,7 @@ class LoginPage extends Component {
                 <input
                   type="email"
                   className={`form-control ${
-                    this.state.emailValid ? "dung" : "sai"
+                    this.state.emailValid ? "valid" : "invalid"
                   }`}
                   name="email"
                   onChange={this.handleChange}
@@ -127,7 +127,7 @@ class LoginPage extends Component {
                 <input
                   placeholder="Password"
                   className={`form-control ${
-                    this.state.passwordValid ? "dung" : "sai"
+                    this.state.passwordValid ? "valid" : "invalid"
                   }`}
                   onChange={this.handleChange}
                   onKeyUp={this.handleError}
